@@ -14,7 +14,130 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      call_logs: {
+        Row: {
+          call_type: string
+          created_at: string
+          id: string
+          notes: string | null
+          occurred_at: string
+          outcome: string
+          resident_id: string
+        }
+        Insert: {
+          call_type: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          occurred_at?: string
+          outcome?: string
+          resident_id: string
+        }
+        Update: {
+          call_type?: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          occurred_at?: string
+          outcome?: string
+          resident_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "call_logs_resident_id_fkey"
+            columns: ["resident_id"]
+            isOneToOne: false
+            referencedRelation: "residents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      call_schedules: {
+        Row: {
+          activity_description: string | null
+          call_type: string
+          created_at: string
+          frequency: string
+          id: string
+          next_call_at: string | null
+          preferred_time: string | null
+          resident_id: string
+          updated_at: string
+        }
+        Insert: {
+          activity_description?: string | null
+          call_type: string
+          created_at?: string
+          frequency: string
+          id?: string
+          next_call_at?: string | null
+          preferred_time?: string | null
+          resident_id: string
+          updated_at?: string
+        }
+        Update: {
+          activity_description?: string | null
+          call_type?: string
+          created_at?: string
+          frequency?: string
+          id?: string
+          next_call_at?: string | null
+          preferred_time?: string | null
+          resident_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "call_schedules_resident_id_fkey"
+            columns: ["resident_id"]
+            isOneToOne: false
+            referencedRelation: "residents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      residents: {
+        Row: {
+          caregiver_contact_info: string | null
+          caregiver_contact_name: string | null
+          caregiver_relationship: string | null
+          created_at: string
+          family_contact_info: string | null
+          family_contact_name: string | null
+          id: string
+          interests_notes: string | null
+          living_situation: string
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          caregiver_contact_info?: string | null
+          caregiver_contact_name?: string | null
+          caregiver_relationship?: string | null
+          created_at?: string
+          family_contact_info?: string | null
+          family_contact_name?: string | null
+          id?: string
+          interests_notes?: string | null
+          living_situation?: string
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          caregiver_contact_info?: string | null
+          caregiver_contact_name?: string | null
+          caregiver_relationship?: string | null
+          created_at?: string
+          family_contact_info?: string | null
+          family_contact_name?: string | null
+          id?: string
+          interests_notes?: string | null
+          living_situation?: string
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
