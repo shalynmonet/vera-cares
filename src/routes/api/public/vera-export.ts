@@ -17,14 +17,6 @@ export const Route = createFileRoute("/api/public/vera-export")({
         const authHeader = request.headers.get("authorization") ?? "";
         const match = /^Bearer ([^\s,]+)$/.exec(authHeader);
 
-        return Response.json({
-          apiKeyConfigured: Boolean(apiKey),
-          apiKeyLength: apiKey?.length ?? 0,
-          authHeaderPresent: Boolean(authHeader),
-          authHeaderMatchesBearerShape: Boolean(match),
-        });
-
-        /* --- Original logic (temporarily commented out for diagnostics) ---
         if (!apiKey) return Response.json({ error: "Export API is not configured" }, { status: 503 });
 
         const provided = match?.[1];
@@ -73,7 +65,6 @@ export const Route = createFileRoute("/api/public/vera-export")({
             weekly_activity_schedule: activitiesByResident.get(resident.id) ?? [],
           })),
         });
-        --- End original logic --- */
       },
     },
   },
