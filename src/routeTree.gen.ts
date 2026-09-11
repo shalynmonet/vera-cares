@@ -9,20 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as ResidentsResidentIdRouteImport } from './routes/residents.$residentId'
+import { Route as AuthenticatedResidentsIndexRouteImport } from './routes/_authenticated/residents.index'
+import { Route as AuthenticatedResidentsResidentIdRouteImport } from './routes/_authenticated/residents.$residentId'
 import { Route as ApiPublicVeraExportRouteImport } from './routes/api/public/vera-export'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResidentsResidentIdRoute = ResidentsResidentIdRouteImport.update({
-  id: '/residents/$residentId',
-  path: '/residents/$residentId',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const AuthenticatedResidentsIndexRoute =
+  AuthenticatedResidentsIndexRouteImport.update({
+    id: '/_authenticated/residents/',
+    path: '/residents/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AuthenticatedResidentsResidentIdRoute =
+  AuthenticatedResidentsResidentIdRouteImport.update({
+    id: '/_authenticated/residents/$residentId',
+    path: '/residents/$residentId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicVeraExportRoute = ApiPublicVeraExportRouteImport.update({
   id: '/api/public/vera-export',
   path: '/api/public/vera-export',
@@ -30,49 +32,54 @@ const ApiPublicVeraExportRoute = ApiPublicVeraExportRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/residents/$residentId': typeof ResidentsResidentIdRoute
+  '/residents/$residentId': typeof AuthenticatedResidentsResidentIdRoute
   '/api/public/vera-export': typeof ApiPublicVeraExportRoute
+  '/residents/': typeof AuthenticatedResidentsIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/residents/$residentId': typeof ResidentsResidentIdRoute
+  '/residents/$residentId': typeof AuthenticatedResidentsResidentIdRoute
   '/api/public/vera-export': typeof ApiPublicVeraExportRoute
+  '/residents': typeof AuthenticatedResidentsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/residents/$residentId': typeof ResidentsResidentIdRoute
+  '/_authenticated/residents/$residentId': typeof AuthenticatedResidentsResidentIdRoute
   '/api/public/vera-export': typeof ApiPublicVeraExportRoute
+  '/_authenticated/residents/': typeof AuthenticatedResidentsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/residents/$residentId' | '/api/public/vera-export'
+  fullPaths:
+    '/residents/$residentId' | '/api/public/vera-export' | '/residents/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/residents/$residentId' | '/api/public/vera-export'
-  id: '__root__' | '/' | '/residents/$residentId' | '/api/public/vera-export'
+  to: '/residents/$residentId' | '/api/public/vera-export' | '/residents'
+  id:
+    | '__root__'
+    | '/_authenticated/residents/$residentId'
+    | '/api/public/vera-export'
+    | '/_authenticated/residents/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  ResidentsResidentIdRoute: typeof ResidentsResidentIdRoute
+  AuthenticatedResidentsResidentIdRoute: typeof AuthenticatedResidentsResidentIdRoute
   ApiPublicVeraExportRoute: typeof ApiPublicVeraExportRoute
+  AuthenticatedResidentsIndexRoute: typeof AuthenticatedResidentsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/_authenticated/residents/': {
+      id: '/_authenticated/residents/'
+      path: '/residents'
+      fullPath: '/residents/'
+      preLoaderRoute: typeof AuthenticatedResidentsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/residents/$residentId': {
-      id: '/residents/$residentId'
+    '/_authenticated/residents/$residentId': {
+      id: '/_authenticated/residents/$residentId'
       path: '/residents/$residentId'
       fullPath: '/residents/$residentId'
-      preLoaderRoute: typeof ResidentsResidentIdRouteImport
+      preLoaderRoute: typeof AuthenticatedResidentsResidentIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/vera-export': {
@@ -86,9 +93,9 @@ declare module '@tanstack/react-router' {
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  ResidentsResidentIdRoute: ResidentsResidentIdRoute,
+  AuthenticatedResidentsResidentIdRoute: AuthenticatedResidentsResidentIdRoute,
   ApiPublicVeraExportRoute: ApiPublicVeraExportRoute,
+  AuthenticatedResidentsIndexRoute: AuthenticatedResidentsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
