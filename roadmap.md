@@ -5,4 +5,4 @@
 - [x] Add an independently editable weekly schedule table to resident profiles.
 - [x] Add a shared-key protected resident export API.
 - [x] Configure the shared API key.
-- [ ] Verify schedule editing, API authentication, layout, and build health.
+- [x] Verify schedule editing, API authentication, layout, and build health.
