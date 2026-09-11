@@ -43,6 +43,26 @@ export interface CallLog {
   notes: string | null;
 }
 
+export interface WeeklyActivitySchedule {
+  id: string;
+  resident_id: string;
+  day_of_week: number;
+  activity_description: string | null;
+  duration_minutes: number | null;
+  is_rest_day: boolean;
+  updated_at: string;
+}
+
+export const DAYS_OF_WEEK = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+] as const;
+
 export const residentsQuery = {
   queryKey: ["residents"],
   queryFn: async (): Promise<Resident[]> => {
@@ -84,6 +104,19 @@ export const logsQuery = (id: string) => ({
       .order("occurred_at", { ascending: false });
     if (error) throw error;
     return (data ?? []) as CallLog[];
+  },
+});
+
+export const weeklyActivitiesQuery = (id: string) => ({
+  queryKey: ["weekly-activities", id],
+  queryFn: async (): Promise<WeeklyActivitySchedule[]> => {
+    const { data, error } = await supabase
+      .from("weekly_activity_schedules")
+      .select("*")
+      .eq("resident_id", id)
+      .order("day_of_week");
+    if (error) throw error;
+    return (data ?? []) as WeeklyActivitySchedule[];
   },
 });
 
