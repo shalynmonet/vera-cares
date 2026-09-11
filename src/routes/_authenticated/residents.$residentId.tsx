@@ -19,7 +19,7 @@ import {
   type CallSchedule,
 } from "@/lib/vera";
 
-export const Route = createFileRoute("/residents/$residentId")({
+export const Route = createFileRoute("/_authenticated/residents/$residentId")({
   head: () => ({
     meta: [
       { title: "Resident profile — Vera" },
@@ -65,7 +65,7 @@ function ResidentProfile() {
       <AppShell>
         <div className="space-y-4 py-20">
           <h1 className="font-display text-3xl font-bold">Resident not found</h1>
-          <Link to="/" className="font-mono text-xs uppercase tracking-widest text-accent">
+          <Link to="/residents" className="font-mono text-xs uppercase tracking-widest text-accent">
             Back to registry
           </Link>
         </div>
@@ -84,7 +84,7 @@ function ResidentProfile() {
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div className="space-y-1">
               <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
-                <Link to="/" className="hover:text-foreground">
+                <Link to="/residents" className="hover:text-foreground">
                   Residents
                 </Link>
                 <span className="opacity-30">/</span>

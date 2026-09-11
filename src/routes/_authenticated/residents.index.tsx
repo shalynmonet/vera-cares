@@ -12,7 +12,7 @@ import {
   type CallSchedule,
 } from "@/lib/vera";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/_authenticated/residents/")({
   head: () => ({
     meta: [
       { title: "Residents — Vera Care Intelligence" },
