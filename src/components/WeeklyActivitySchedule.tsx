@@ -32,6 +32,9 @@ export function WeeklyActivitySchedule({ schedule }: { schedule: ActivityDay[] }
         {schedule.map((day, index) => (
           <ActivityDayRow key={day.id} day={day} isLast={index === schedule.length - 1} />
         ))}
+        {schedule.length === 0 && (
+          <div className="px-4 py-8 text-center text-[13px] text-muted">Loading weekly schedule…</div>
+        )}
       </div>
     </section>
   );

@@ -1,8 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createHash, timingSafeEqual } from "node:crypto";
-import { createClient } from "@supabase/supabase-js";
-
-import type { Database } from "@/integrations/supabase/types";
 
 function digest(value: string) {
   return createHash("sha256").update(value, "utf8").digest();
@@ -23,25 +20,17 @@ export const Route = createFileRoute("/api/public/vera-export")({
         const provided = match?.[1];
         if (!provided || !timingSafeEqual(digest(provided), digest(apiKey))) return unauthorized();
 
-        const url = process.env["SUPABASE_URL"];
-        const publishableKey = process.env["SUPABASE_PUBLISHABLE_KEY"];
-        if (!url || !publishableKey) {
-          return Response.json({ error: "Data service is not configured" }, { status: 503 });
-        }
-
-        const supabase = createClient<Database>(url, publishableKey, {
-          auth: { storage: undefined, persistSession: false, autoRefreshToken: false },
-        });
+        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
         const [residents, callSchedules, weeklyActivities] = await Promise.all([
-          supabase
+          supabaseAdmin
             .from("residents")
             .select("id,name,living_situation,family_contact_name,family_contact_info,caregiver_contact_name,caregiver_contact_info,caregiver_relationship,interests_notes,updated_at")
             .order("name"),
-          supabase
+          supabaseAdmin
             .from("call_schedules")
             .select("id,resident_id,call_type,frequency,activity_description,preferred_time,next_call_at,updated_at")
             .order("resident_id"),
-          supabase
+          supabaseAdmin
             .from("weekly_activity_schedules")
             .select("id,resident_id,day_of_week,activity_description,duration_minutes,is_rest_day,updated_at")
             .order("resident_id")
