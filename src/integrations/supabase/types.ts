@@ -138,6 +138,47 @@ export type Database = {
         }
         Relationships: []
       }
+      weekly_activity_schedules: {
+        Row: {
+          activity_description: string | null
+          created_at: string
+          day_of_week: number
+          duration_minutes: number | null
+          id: string
+          is_rest_day: boolean
+          resident_id: string
+          updated_at: string
+        }
+        Insert: {
+          activity_description?: string | null
+          created_at?: string
+          day_of_week: number
+          duration_minutes?: number | null
+          id?: string
+          is_rest_day?: boolean
+          resident_id: string
+          updated_at?: string
+        }
+        Update: {
+          activity_description?: string | null
+          created_at?: string
+          day_of_week?: number
+          duration_minutes?: number | null
+          id?: string
+          is_rest_day?: boolean
+          resident_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "weekly_activity_schedules_resident_id_fkey"
+            columns: ["resident_id"]
+            isOneToOne: false
+            referencedRelation: "residents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

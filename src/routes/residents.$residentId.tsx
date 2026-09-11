@@ -6,6 +6,7 @@ import { AppShell } from "@/components/AppShell";
 import { CallLogDialog } from "@/components/CallLogDialog";
 import { ResidentDialog } from "@/components/ResidentDialog";
 import { ScheduleDialog } from "@/components/ScheduleDialog";
+import { WeeklyActivitySchedule } from "@/components/WeeklyActivitySchedule";
 import {
   formatDateTime,
   initials,
@@ -14,6 +15,7 @@ import {
   residentQuery,
   residentsQuery,
   schedulesQuery,
+  weeklyActivitiesQuery,
   type CallSchedule,
 } from "@/lib/vera";
 
@@ -31,6 +33,8 @@ export const Route = createFileRoute("/residents/$residentId")({
         property: "og:description",
         content: "Contacts, notes, upcoming wellness calls, and call history for a resident.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: ResidentProfile,
@@ -46,6 +50,7 @@ function ResidentProfile() {
   const schedules = useQuery(schedulesQuery(residentId));
   const logs = useQuery(logsQuery(residentId));
   const allResidents = useQuery(residentsQuery);
+  const weeklyActivities = useQuery(weeklyActivitiesQuery(residentId));
 
   if (resident.isLoading) {
     return (
@@ -142,6 +147,8 @@ function ResidentProfile() {
               </p>
             </div>
           </div>
+
+          <WeeklyActivitySchedule schedule={weeklyActivities.data ?? []} />
 
           <div className="mt-12 grid gap-8 md:grid-cols-2">
             <div className="rise [animation-delay:300ms]">

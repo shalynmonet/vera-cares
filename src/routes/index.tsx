@@ -26,6 +26,8 @@ export const Route = createFileRoute("/")({
         property: "og:description",
         content: "Profiles, call schedules, and call history for every resident in your care.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: Dashboard,
