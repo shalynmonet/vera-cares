@@ -9,6 +9,7 @@ import { CallTouchpoints } from "@/components/CallTouchpoints";
 import { DailyExercises } from "@/components/DailyExercises";
 import { ResidentDialog } from "@/components/ResidentDialog";
 import { CaregiverAccess } from "@/components/CaregiverAccess";
+import { OutcomeTag } from "@/components/OutcomeTag";
 import { ScheduleDialog } from "@/components/ScheduleDialog";
 import { WeeklyActivitySchedule } from "@/components/WeeklyActivitySchedule";
 import {
