@@ -159,6 +159,15 @@ export function ResidentDialog({
               placeholder="Hobbies, family names, things they like to talk about…"
             />
           </Field>
+
+          <Field label="Emergency criteria" className="sm:col-span-2">
+            <Textarea
+              rows={3}
+              value={form.emergency_criteria}
+              onChange={(e) => set("emergency_criteria")(e.target.value)}
+              placeholder="What counts as an emergency for this person, and who to call…"
+            />
+          </Field>
         </div>
 
         <DialogFooter>
