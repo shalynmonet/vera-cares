@@ -45,15 +45,15 @@ function Landing() {
           Scheduled wellness calls, kept in one calm place.
         </h1>
         <p className="mt-5 max-w-xl text-[16px] leading-relaxed text-muted">
-          Resident profiles, family and caregiver contacts, weekly activity plans and full call
-          history. Resident information is private and only visible to signed-in staff.
+          User profiles, family and caregiver contacts, weekly activity plans and full call
+          history. Information is private and only visible to signed-in staff and caregivers.
         </p>
 
         <Link
           to="/auth"
           className="group relative mt-10 overflow-hidden rounded-full bg-foreground px-7 py-3.5 text-sm font-semibold text-background transition-all hover:pr-9"
         >
-          <span className="relative z-10">Staff sign in</span>
+          <span className="relative z-10">Staff &amp; caregiver sign in</span>
           <div className="absolute inset-y-0 right-0 w-0 bg-accent transition-all group-hover:w-full" />
         </Link>
       </main>
