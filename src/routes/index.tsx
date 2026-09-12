@@ -45,8 +45,8 @@ function Landing() {
           Scheduled wellness calls, kept in one calm place.
         </h1>
         <p className="mt-5 max-w-xl text-[16px] leading-relaxed text-muted">
-          Resident profiles, family and caregiver contacts, weekly activity plans and full call
-          history. Resident information is private and only visible to signed-in staff.
+          User profiles, family and caregiver contacts, weekly activity plans and full call
+          history. Information is private and only visible to signed-in staff and caregivers.
         </p>
 
         <Link
