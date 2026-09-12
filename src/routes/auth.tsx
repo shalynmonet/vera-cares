@@ -14,7 +14,7 @@ export const Route = createFileRoute("/auth")({
       { title: "Staff sign in — Vera" },
       {
         name: "description",
-        content: "Sign in to Vera to view resident profiles, wellness call schedules and call history.",
+        content: "Sign in to Vera to view user profiles, wellness call schedules and call history.",
       },
       { property: "og:title", content: "Staff sign in — Vera" },
       { property: "og:description", content: "Private staff access to the Vera care registry." },

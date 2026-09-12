@@ -82,7 +82,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "Vera — Care Intelligence" },
       {
         name: "description",
-        content: "Track elderly residents receiving scheduled wellness phone calls.",
+        content: "Track people receiving scheduled wellness phone calls.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

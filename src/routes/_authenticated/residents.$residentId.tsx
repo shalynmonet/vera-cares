@@ -22,16 +22,16 @@ import {
 export const Route = createFileRoute("/_authenticated/residents/$residentId")({
   head: () => ({
     meta: [
-      { title: "Resident profile — Vera" },
+      { title: "User profile — Vera" },
       {
         name: "description",
         content:
-          "Resident profile with contacts, personalization notes, upcoming wellness calls, and full call history.",
+          "User profile with contacts, personalization notes, upcoming wellness calls, and full call history.",
       },
-      { property: "og:title", content: "Resident profile — Vera" },
+      { property: "og:title", content: "User profile — Vera" },
       {
         property: "og:description",
-        content: "Contacts, notes, upcoming wellness calls, and call history for a resident.",
+        content: "Contacts, notes, upcoming wellness calls, and call history for one person.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -64,7 +64,7 @@ function ResidentProfile() {
     return (
       <AppShell>
         <div className="space-y-4 py-20">
-          <h1 className="font-display text-3xl font-bold">Resident not found</h1>
+          <h1 className="font-display text-3xl font-bold">User profile not found</h1>
           <Link to="/residents" className="font-mono text-xs uppercase tracking-widest text-accent">
             Back to registry
           </Link>
