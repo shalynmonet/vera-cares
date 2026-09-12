@@ -107,8 +107,19 @@ export function CallLogDialog({
                   {option}
                 </button>
               ))}
-            </div>
           </div>
+
+          <div className="space-y-1.5">
+            <Label className="font-mono text-[10px] uppercase tracking-widest text-muted">Summary &amp; notes</Label>
+            <Textarea
+              rows={4}
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="How the call went, mood, anything to follow up on…"
+            />
+          </div>
+        </div>
+
         </div>
 
         <DialogFooter>
