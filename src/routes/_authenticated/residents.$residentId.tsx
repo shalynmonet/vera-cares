@@ -52,12 +52,15 @@ function ResidentProfile() {
   const [editing, setEditing] = useState(false);
   const [logging, setLogging] = useState(false);
   const [editSchedule, setEditSchedule] = useState<CallSchedule | null>(null);
+  const [openLog, setOpenLog] = useState<CallLog | null>(null);
 
   const resident = useQuery(residentQuery(residentId));
   const schedules = useQuery(schedulesQuery(residentId));
   const logs = useQuery(logsQuery(residentId));
   const allResidents = useQuery(residentsQuery);
   const weeklyActivities = useQuery(weeklyActivitiesQuery(residentId));
+  const exercises = useQuery(exercisesQuery(residentId));
+  const touchpoints = useQuery(touchpointsQuery(residentId));
 
   if (resident.isLoading) {
     return (
@@ -155,7 +158,14 @@ function ResidentProfile() {
             </div>
           </div>
 
-          <WeeklyActivitySchedule schedule={weeklyActivities.data ?? []} />
+          <WeeklyActivitySchedule
+            schedule={weeklyActivities.data ?? []}
+            exercises={exercises.data ?? []}
+          />
+
+          <DailyExercises residentId={r.id} exercises={exercises.data ?? []} />
+
+          <CallTouchpoints residentId={r.id} touchpoints={touchpoints.data ?? []} />
 
           <div className="mt-12 grid gap-8 md:grid-cols-2">
             <div className="rise [animation-delay:300ms]">
