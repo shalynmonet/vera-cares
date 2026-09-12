@@ -31,6 +31,7 @@ function AuthPage() {
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
   const [resetting, setResetting] = useState(false);
+  const [role, setRole] = useState<"Staff" | "Caregiver">("Staff");
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
