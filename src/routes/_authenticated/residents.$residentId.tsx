@@ -5,6 +5,7 @@ import { useState } from "react";
 import { AppShell } from "@/components/AppShell";
 import { CallLogDialog } from "@/components/CallLogDialog";
 import { ResidentDialog } from "@/components/ResidentDialog";
+import { CaregiverAccess } from "@/components/CaregiverAccess";
 import { ScheduleDialog } from "@/components/ScheduleDialog";
 import { WeeklyActivitySchedule } from "@/components/WeeklyActivitySchedule";
 import {
