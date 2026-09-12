@@ -150,8 +150,9 @@ export function formatDateTime(value: string | null) {
 
 export function outcomeClasses(outcome: string) {
   if (outcome === "Completed") return "bg-good-soft text-good border-good/25";
-  if (outcome === "Cut short") return "bg-warn-soft text-warn border-warn/25";
-  return "bg-bad-soft text-bad border-bad/25";
+  if (outcome === "No answer") return "bg-alert-soft text-alert border-alert/25";
+  if (outcome === "Cut short") return "bg-caution-soft text-caution border-caution/30";
+  return "bg-bad-soft text-bad border-bad/30";
 }
 
 export function toLocalInputValue(date: Date) {
