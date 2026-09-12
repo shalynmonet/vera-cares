@@ -156,6 +156,13 @@ function ResidentProfile() {
                 {r.interests_notes || "No personalization notes yet."}
               </p>
             </div>
+
+            <div className="rise rounded-2xl border border-bad/30 bg-bad-soft p-6 [animation-delay:250ms]">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-bad">Emergency criteria</span>
+              <p className="mt-3 max-w-[65ch] text-[15px] leading-relaxed text-pretty">
+                {r.emergency_criteria || "No emergency criteria recorded yet."}
+              </p>
+            </div>
           </div>
 
           <WeeklyActivitySchedule
