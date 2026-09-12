@@ -193,22 +193,25 @@ function ResidentProfile() {
                   <div className="px-4 py-6 text-center text-[13px] text-muted">No calls logged yet.</div>
                 )}
                 {logs.data?.map((log, index) => (
-                  <div
+                  <button
                     key={log.id}
-                    className={`flex items-center justify-between px-4 py-3 transition-colors hover:bg-accent-soft/30 ${
+                    type="button"
+                    onClick={() => setOpenLog(log)}
+                    className={`flex w-full items-center justify-between px-4 py-3 text-left transition-colors hover:bg-accent-soft/30 ${
                       index < (logs.data?.length ?? 0) - 1 ? "border-b border-border" : ""
                     }`}
                   >
-                    <div className="space-y-0.5">
+                    <div className="min-w-0 space-y-0.5">
                       <div className="text-[13px] font-medium">{log.call_type}</div>
                       <div className="font-mono text-[10px] text-muted">{formatDateTime(log.occurred_at)}</div>
+                      {log.notes && <div className="truncate text-[12px] text-muted">{log.notes}</div>}
                     </div>
                     <span
-                      className={`rounded-full border px-2.5 py-0.5 text-[10px] font-semibold ${outcomeClasses(log.outcome)}`}
+                      className={`ml-3 shrink-0 rounded-full border px-2.5 py-0.5 text-[10px] font-semibold ${outcomeClasses(log.outcome)}`}
                     >
                       {log.outcome}
                     </span>
-                  </div>
+                  </button>
                 ))}
               </div>
             </div>
