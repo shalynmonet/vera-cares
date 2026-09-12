@@ -206,11 +206,7 @@ function ResidentProfile() {
                       <div className="font-mono text-[10px] text-muted">{formatDateTime(log.occurred_at)}</div>
                       {log.notes && <div className="truncate text-[12px] text-muted">{log.notes}</div>}
                     </div>
-                    <span
-                      className={`ml-3 shrink-0 rounded-full border px-2.5 py-0.5 text-[10px] font-semibold ${outcomeClasses(log.outcome)}`}
-                    >
-                      {log.outcome}
-                    </span>
+                    <OutcomeTag log={log} />
                   </button>
                 ))}
               </div>
