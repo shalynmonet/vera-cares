@@ -199,7 +199,8 @@ function ResidentProfile() {
         </section>
 
         <aside className="pt-10">
-          <div className="sticky top-10">
+          <div className="sticky top-10 space-y-5">
+            <CaregiverAccess residentId={r.id} />
             <div className="rise rounded-2xl border border-border bg-surface p-5 [animation-delay:500ms]">
               <div className="mb-5 flex items-center justify-between">
                 <span className="font-mono text-[10px] uppercase tracking-widest text-muted">Care Registry</span>
