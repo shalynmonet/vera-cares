@@ -1,8 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { createHash, timingSafeEqual } from "node:crypto";
 
-function digest(value: string) {
-  return createHash("sha256").update(value, "utf8").digest();
+// Uses Web Crypto (available natively in the edge runtime) instead of node:crypto,
+// whose timingSafeEqual polyfill cannot be trusted here.
+async function sha256(value: string): Promise<Uint8Array> {
+  const data = new TextEncoder().encode(value);
+  const hash = await crypto.subtle.digest("SHA-256", data);
+  return new Uint8Array(hash);
+}
+
+async function secretsMatch(provided: string, expected: string): Promise<boolean> {
+  const [a, b] = await Promise.all([sha256(provided), sha256(expected)]);
+  if (a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a[i]! ^ b[i]!;
+  return diff === 0;
 }
 
 function unauthorized() {
@@ -20,7 +31,8 @@ export const Route = createFileRoute("/api/public/vera-export")({
         if (!apiKey) return Response.json({ error: "Export API is not configured" }, { status: 503 });
 
         const provided = match?.[1];
-        if (!provided || !timingSafeEqual(digest(provided), digest(apiKey))) return unauthorized();
+        if (!provided || !(await secretsMatch(provided, apiKey))) return unauthorized();
+
 
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
         const [residents, callSchedules, weeklyActivities] = await Promise.all([
