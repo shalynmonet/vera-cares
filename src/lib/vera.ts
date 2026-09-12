@@ -6,8 +6,8 @@ export const LIVING_SITUATIONS: LivingSituation[] = ["Nursing home", "Independen
 export type CallType = "Social Check-In" | "Activity";
 export const CALL_TYPES: CallType[] = ["Social Check-In", "Activity"];
 
-export type Outcome = "Completed" | "No answer" | "Cut short";
-export const OUTCOMES: Outcome[] = ["Completed", "No answer", "Cut short"];
+export type Outcome = "Completed" | "No answer" | "Cut short" | "Emergency";
+export const OUTCOMES: Outcome[] = ["Completed", "No answer", "Cut short", "Emergency"];
 
 export const FREQUENCIES = ["Daily", "Every other day", "Weekly", "Twice weekly", "Monthly"];
 
