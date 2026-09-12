@@ -39,7 +39,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               to="/residents"
               className="relative text-foreground after:absolute after:-bottom-5 after:left-0 after:h-0.5 after:w-full after:bg-accent"
             >
-              Residents
+              User profiles
             </Link>
             <button
               type="button"

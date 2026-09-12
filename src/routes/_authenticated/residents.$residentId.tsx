@@ -85,7 +85,7 @@ function ResidentProfile() {
             <div className="space-y-1">
               <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
                 <Link to="/residents" className="hover:text-foreground">
-                  Residents
+                  User profiles
                 </Link>
                 <span className="opacity-30">/</span>
                 <span className="text-foreground">{r.name}</span>

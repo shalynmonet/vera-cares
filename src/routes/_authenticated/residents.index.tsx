@@ -53,7 +53,7 @@ function Dashboard() {
           <div className="space-y-1">
             <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">Care Registry</div>
             <h1 className="font-display text-5xl font-bold leading-tight tracking-tighter text-balance sm:text-6xl">
-              Residents
+              User profiles
             </h1>
             <p className="max-w-md pt-2 text-[15px] text-muted">
               Everyone receiving scheduled wellness calls, with their next call and most recent outcome.
