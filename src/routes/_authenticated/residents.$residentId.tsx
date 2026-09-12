@@ -271,6 +271,12 @@ function ResidentProfile() {
         onOpenChange={(open) => !open && setEditSchedule(null)}
         schedule={editSchedule}
       />
+      <CallSummaryDialog
+        open={openLog !== null}
+        onOpenChange={(open) => !open && setOpenLog(null)}
+        log={openLog}
+        touchpoints={touchpoints.data ?? []}
+      />
     </AppShell>
   );
 }
