@@ -4,11 +4,15 @@ import { useState } from "react";
 
 import { AppShell } from "@/components/AppShell";
 import { CallLogDialog } from "@/components/CallLogDialog";
+import { CallSummaryDialog } from "@/components/CallSummaryDialog";
+import { CallTouchpoints } from "@/components/CallTouchpoints";
+import { DailyExercises } from "@/components/DailyExercises";
 import { ResidentDialog } from "@/components/ResidentDialog";
 import { CaregiverAccess } from "@/components/CaregiverAccess";
 import { ScheduleDialog } from "@/components/ScheduleDialog";
 import { WeeklyActivitySchedule } from "@/components/WeeklyActivitySchedule";
 import {
+  exercisesQuery,
   formatDateTime,
   initials,
   logsQuery,
@@ -16,7 +20,9 @@ import {
   residentQuery,
   residentsQuery,
   schedulesQuery,
+  touchpointsQuery,
   weeklyActivitiesQuery,
+  type CallLog,
   type CallSchedule,
 } from "@/lib/vera";
 
@@ -46,12 +52,15 @@ function ResidentProfile() {
   const [editing, setEditing] = useState(false);
   const [logging, setLogging] = useState(false);
   const [editSchedule, setEditSchedule] = useState<CallSchedule | null>(null);
+  const [openLog, setOpenLog] = useState<CallLog | null>(null);
 
   const resident = useQuery(residentQuery(residentId));
   const schedules = useQuery(schedulesQuery(residentId));
   const logs = useQuery(logsQuery(residentId));
   const allResidents = useQuery(residentsQuery);
   const weeklyActivities = useQuery(weeklyActivitiesQuery(residentId));
+  const exercises = useQuery(exercisesQuery(residentId));
+  const touchpoints = useQuery(touchpointsQuery(residentId));
 
   if (resident.isLoading) {
     return (
@@ -149,7 +158,14 @@ function ResidentProfile() {
             </div>
           </div>
 
-          <WeeklyActivitySchedule schedule={weeklyActivities.data ?? []} />
+          <WeeklyActivitySchedule
+            schedule={weeklyActivities.data ?? []}
+            exercises={exercises.data ?? []}
+          />
+
+          <DailyExercises residentId={r.id} exercises={exercises.data ?? []} />
+
+          <CallTouchpoints residentId={r.id} touchpoints={touchpoints.data ?? []} />
 
           <div className="mt-12 grid gap-8 md:grid-cols-2">
             <div className="rise [animation-delay:300ms]">
@@ -177,22 +193,25 @@ function ResidentProfile() {
                   <div className="px-4 py-6 text-center text-[13px] text-muted">No calls logged yet.</div>
                 )}
                 {logs.data?.map((log, index) => (
-                  <div
+                  <button
                     key={log.id}
-                    className={`flex items-center justify-between px-4 py-3 transition-colors hover:bg-accent-soft/30 ${
+                    type="button"
+                    onClick={() => setOpenLog(log)}
+                    className={`flex w-full items-center justify-between px-4 py-3 text-left transition-colors hover:bg-accent-soft/30 ${
                       index < (logs.data?.length ?? 0) - 1 ? "border-b border-border" : ""
                     }`}
                   >
-                    <div className="space-y-0.5">
+                    <div className="min-w-0 space-y-0.5">
                       <div className="text-[13px] font-medium">{log.call_type}</div>
                       <div className="font-mono text-[10px] text-muted">{formatDateTime(log.occurred_at)}</div>
+                      {log.notes && <div className="truncate text-[12px] text-muted">{log.notes}</div>}
                     </div>
                     <span
-                      className={`rounded-full border px-2.5 py-0.5 text-[10px] font-semibold ${outcomeClasses(log.outcome)}`}
+                      className={`ml-3 shrink-0 rounded-full border px-2.5 py-0.5 text-[10px] font-semibold ${outcomeClasses(log.outcome)}`}
                     >
                       {log.outcome}
                     </span>
-                  </div>
+                  </button>
                 ))}
               </div>
             </div>
@@ -251,6 +270,12 @@ function ResidentProfile() {
         open={editSchedule !== null}
         onOpenChange={(open) => !open && setEditSchedule(null)}
         schedule={editSchedule}
+      />
+      <CallSummaryDialog
+        open={openLog !== null}
+        onOpenChange={(open) => !open && setOpenLog(null)}
+        log={openLog}
+        touchpoints={touchpoints.data ?? []}
       />
     </AppShell>
   );

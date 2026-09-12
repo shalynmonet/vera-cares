@@ -35,7 +35,7 @@ export const Route = createFileRoute("/api/public/vera-export")({
 
 
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-        const [residents, callSchedules, weeklyActivities] = await Promise.all([
+        const [residents, callSchedules, weeklyActivities, exercises, touchpoints] = await Promise.all([
           supabaseAdmin
             .from("residents")
             .select("id,name,living_situation,family_contact_name,family_contact_info,caregiver_contact_name,caregiver_contact_info,caregiver_relationship,interests_notes,updated_at")
@@ -49,13 +49,42 @@ export const Route = createFileRoute("/api/public/vera-export")({
             .select("id,resident_id,day_of_week,activity_description,duration_minutes,is_rest_day,updated_at")
             .order("resident_id")
             .order("day_of_week"),
+          supabaseAdmin
+            .from("resident_exercises")
+            .select("id,resident_id,name,instructions,duration_minutes,updated_at")
+            .order("resident_id")
+            .order("created_at"),
+          supabaseAdmin
+            .from("call_touchpoints")
+            .select("id,resident_id,call_type,prompt,sort_order,updated_at")
+            .order("resident_id")
+            .order("sort_order"),
         ]);
 
-        const error = residents.error ?? callSchedules.error ?? weeklyActivities.error;
+        const error =
+          residents.error ??
+          callSchedules.error ??
+          weeklyActivities.error ??
+          exercises.error ??
+          touchpoints.error;
         if (error) return Response.json({ error: "Unable to export resident data" }, { status: 500 });
 
         const schedulesByResident = new Map<string, typeof callSchedules.data>();
         const activitiesByResident = new Map<string, typeof weeklyActivities.data>();
+        const exercisesByResident = new Map<string, typeof exercises.data>();
+        const touchpointsByResident = new Map<string, typeof touchpoints.data>();
+        for (const exercise of exercises.data ?? []) {
+          exercisesByResident.set(exercise.resident_id, [
+            ...(exercisesByResident.get(exercise.resident_id) ?? []),
+            exercise,
+          ]);
+        }
+        for (const touchpoint of touchpoints.data ?? []) {
+          touchpointsByResident.set(touchpoint.resident_id, [
+            ...(touchpointsByResident.get(touchpoint.resident_id) ?? []),
+            touchpoint,
+          ]);
+        }
         for (const schedule of callSchedules.data ?? []) {
           schedulesByResident.set(schedule.resident_id, [
             ...(schedulesByResident.get(schedule.resident_id) ?? []),
@@ -75,6 +104,8 @@ export const Route = createFileRoute("/api/public/vera-export")({
             ...resident,
             call_schedules: schedulesByResident.get(resident.id) ?? [],
             weekly_activity_schedule: activitiesByResident.get(resident.id) ?? [],
+            custom_exercises: exercisesByResident.get(resident.id) ?? [],
+            call_touchpoints: touchpointsByResident.get(resident.id) ?? [],
           })),
         });
       },

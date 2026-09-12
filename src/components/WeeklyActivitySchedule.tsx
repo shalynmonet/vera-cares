@@ -8,9 +8,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { supabase } from "@/integrations/supabase/client";
-import { DAYS_OF_WEEK, type WeeklyActivitySchedule as ActivityDay } from "@/lib/vera";
+import { DAYS_OF_WEEK, type ResidentExercise, type WeeklyActivitySchedule as ActivityDay } from "@/lib/vera";
 
-export function WeeklyActivitySchedule({ schedule }: { schedule: ActivityDay[] }) {
+export function WeeklyActivitySchedule({
+  schedule,
+  exercises = [],
+}: {
+  schedule: ActivityDay[];
+  exercises?: ResidentExercise[];
+}) {
   return (
     <section className="rise mt-12 [animation-delay:350ms]">
       <div className="mb-4 flex items-end justify-between gap-4">
@@ -29,8 +35,18 @@ export function WeeklyActivitySchedule({ schedule }: { schedule: ActivityDay[] }
           <span>Rest day</span>
           <span className="sr-only">Save</span>
         </div>
+        <datalist id="vera-exercise-options">
+          {exercises.map((exercise) => (
+            <option key={exercise.id} value={exercise.name} />
+          ))}
+        </datalist>
         {schedule.map((day, index) => (
-          <ActivityDayRow key={day.id} day={day} isLast={index === schedule.length - 1} />
+          <ActivityDayRow
+            key={day.id}
+            day={day}
+            isLast={index === schedule.length - 1}
+            exercises={exercises}
+          />
         ))}
         {schedule.length === 0 && (
           <div className="px-4 py-8 text-center text-[13px] text-muted">Loading weekly schedule…</div>
@@ -40,7 +56,15 @@ export function WeeklyActivitySchedule({ schedule }: { schedule: ActivityDay[] }
   );
 }
 
-function ActivityDayRow({ day, isLast }: { day: ActivityDay; isLast: boolean }) {
+function ActivityDayRow({
+  day,
+  isLast,
+  exercises,
+}: {
+  day: ActivityDay;
+  isLast: boolean;
+  exercises: ResidentExercise[];
+}) {
   const [description, setDescription] = useState(day.activity_description ?? "");
   const [duration, setDuration] = useState(day.duration_minutes?.toString() ?? "");
   const [isRestDay, setIsRestDay] = useState(day.is_rest_day);
@@ -98,9 +122,15 @@ function ActivityDayRow({ day, isLast }: { day: ActivityDay; isLast: boolean }) 
         </Label>
         <Input
           id={`activity-${day.id}`}
+          list="vera-exercise-options"
           value={description}
           disabled={isRestDay}
-          onChange={(event) => setDescription(event.target.value)}
+          onChange={(event) => {
+            const value = event.target.value;
+            setDescription(value);
+            const match = exercises.find((exercise) => exercise.name === value);
+            if (match?.duration_minutes) setDuration(String(match.duration_minutes));
+          }}
           placeholder={isRestDay ? "No activity scheduled" : "15 min stretching routine"}
           className="h-9"
         />

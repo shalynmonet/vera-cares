@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 
 export function CallLogDialog({
   open,
@@ -26,6 +27,7 @@ export function CallLogDialog({
   const [callType, setCallType] = useState<string>("Social Check-In");
   const [outcome, setOutcome] = useState<string>("Completed");
   const [occurredAt, setOccurredAt] = useState("");
+  const [notes, setNotes] = useState("");
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -33,6 +35,7 @@ export function CallLogDialog({
     setCallType("Social Check-In");
     setOutcome("Completed");
     setOccurredAt(toLocalInputValue(new Date()));
+    setNotes("");
   }, [open]);
 
   const save = useMutation({
@@ -42,6 +45,7 @@ export function CallLogDialog({
         call_type: callType,
         outcome,
         occurred_at: occurredAt ? new Date(occurredAt).toISOString() : new Date().toISOString(),
+        notes: notes.trim() || null,
       });
       if (error) throw error;
     },
@@ -103,8 +107,19 @@ export function CallLogDialog({
                   {option}
                 </button>
               ))}
-            </div>
           </div>
+
+          <div className="space-y-1.5">
+            <Label className="font-mono text-[10px] uppercase tracking-widest text-muted">Summary &amp; notes</Label>
+            <Textarea
+              rows={4}
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="How the call went, mood, anything to follow up on…"
+            />
+          </div>
+        </div>
+
         </div>
 
         <DialogFooter>

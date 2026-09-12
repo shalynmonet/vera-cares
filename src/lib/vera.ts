@@ -158,3 +158,47 @@ export function toLocalInputValue(date: Date) {
   const pad = (n: number) => String(n).padStart(2, "0");
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
 }
+
+export interface ResidentExercise {
+  id: string;
+  resident_id: string;
+  name: string;
+  instructions: string | null;
+  duration_minutes: number | null;
+  created_at: string;
+}
+
+export interface CallTouchpoint {
+  id: string;
+  resident_id: string;
+  call_type: string;
+  prompt: string;
+  sort_order: number;
+  created_at: string;
+}
+
+export const exercisesQuery = (id: string) => ({
+  queryKey: ["exercises", id],
+  queryFn: async (): Promise<ResidentExercise[]> => {
+    const { data, error } = await supabase
+      .from("resident_exercises")
+      .select("*")
+      .eq("resident_id", id)
+      .order("created_at");
+    if (error) throw error;
+    return (data ?? []) as ResidentExercise[];
+  },
+});
+
+export const touchpointsQuery = (id: string) => ({
+  queryKey: ["touchpoints", id],
+  queryFn: async (): Promise<CallTouchpoint[]> => {
+    const { data, error } = await supabase
+      .from("call_touchpoints")
+      .select("*")
+      .eq("resident_id", id)
+      .order("sort_order");
+    if (error) throw error;
+    return (data ?? []) as CallTouchpoint[];
+  },
+});
