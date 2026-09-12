@@ -140,7 +140,7 @@ function ResidentProfile() {
               <div className="p-6">
                 <div className="mb-4 flex items-center justify-between">
                   <span className="font-mono text-[10px] uppercase tracking-widest text-muted">
-                    {r.caregiver_relationship || "Caregiver contact"}
+                    Caregiver contact
                   </span>
                   <div className="pattern-houndstooth size-4 text-border" />
                 </div>
