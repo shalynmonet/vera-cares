@@ -53,7 +53,7 @@ function Landing() {
           to="/auth"
           className="group relative mt-10 overflow-hidden rounded-full bg-foreground px-7 py-3.5 text-sm font-semibold text-background transition-all hover:pr-9"
         >
-          <span className="relative z-10">Staff sign in</span>
+          <span className="relative z-10">Staff &amp; caregiver sign in</span>
           <div className="absolute inset-y-0 right-0 w-0 bg-accent transition-all group-hover:w-full" />
         </Link>
       </main>
