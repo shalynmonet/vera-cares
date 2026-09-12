@@ -59,8 +59,12 @@
   --good-soft: hsl(150 40% 93%);
   --warn: hsl(35 70% 40%);
   --warn-soft: hsl(40 90% 93%);
-  --bad: hsl(8 55% 42%);
-  --bad-soft: hsl(8 75% 94%);
+  --bad: hsl(0 72% 42%);
+  --bad-soft: hsl(0 80% 95%);
+  --alert: hsl(26 88% 40%);
+  --alert-soft: hsl(28 92% 93%);
+  --caution: hsl(45 90% 30%);
+  --caution-soft: hsl(48 95% 90%);
 }
 
 @layer base {
