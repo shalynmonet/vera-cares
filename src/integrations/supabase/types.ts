@@ -96,6 +96,35 @@ export type Database = {
           },
         ]
       }
+      resident_caregivers: {
+        Row: {
+          created_at: string
+          id: string
+          resident_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          resident_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          resident_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "resident_caregivers_resident_id_fkey"
+            columns: ["resident_id"]
+            isOneToOne: false
+            referencedRelation: "residents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       residents: {
         Row: {
           caregiver_contact_info: string | null
