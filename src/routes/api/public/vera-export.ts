@@ -104,6 +104,8 @@ export const Route = createFileRoute("/api/public/vera-export")({
             ...resident,
             call_schedules: schedulesByResident.get(resident.id) ?? [],
             weekly_activity_schedule: activitiesByResident.get(resident.id) ?? [],
+            custom_exercises: exercisesByResident.get(resident.id) ?? [],
+            call_touchpoints: touchpointsByResident.get(resident.id) ?? [],
           })),
         });
       },
