@@ -14,7 +14,7 @@ export const Route = createFileRoute("/auth")({
       { title: "Staff sign in — Vera" },
       {
         name: "description",
-        content: "Sign in to Vera to view resident profiles, wellness call schedules and call history.",
+        content: "Sign in to Vera to view user profiles, wellness call schedules and call history.",
       },
       { property: "og:title", content: "Staff sign in — Vera" },
       { property: "og:description", content: "Private staff access to the Vera care registry." },
@@ -31,6 +31,7 @@ function AuthPage() {
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
   const [resetting, setResetting] = useState(false);
+  const [role, setRole] = useState<"Staff" | "Caregiver">("Staff");
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -75,9 +76,28 @@ function AuthPage() {
           <span className="font-display text-lg font-bold tracking-tight">Vera</span>
         </Link>
 
-        <h1 className="mt-12 font-display text-4xl font-bold tracking-tighter">Staff sign in</h1>
+        <div className="mt-12 flex gap-1 rounded-full border border-border bg-surface p-1 text-[13px] font-medium">
+          {(["Staff", "Caregiver"] as const).map((option) => (
+            <button
+              key={option}
+              type="button"
+              onClick={() => setRole(option)}
+              className={`flex-1 rounded-full px-4 py-2 transition-colors ${
+                role === option ? "bg-foreground text-background" : "text-muted hover:text-foreground"
+              }`}
+            >
+              {option}
+            </button>
+          ))}
+        </div>
+
+        <h1 className="mt-6 font-display text-4xl font-bold tracking-tighter">
+          {role === "Staff" ? "Staff sign in" : "Caregiver sign in"}
+        </h1>
         <p className="mt-3 text-[15px] text-muted">
-          Vera is invite only. Accounts are created by an administrator.
+          {role === "Staff"
+            ? "Vera is invite only. Accounts are created by an administrator."
+            : "Sign in with the caregiver account you were invited with. You'll see only the user profiles assigned to you."}
         </p>
 
         <form onSubmit={handleSignIn} className="mt-8 space-y-4 rounded-2xl border border-border bg-surface p-6">

@@ -87,7 +87,7 @@ export function ResidentDialog({
     },
     onSuccess: (id) => {
       queryClient.invalidateQueries();
-      toast.success(resident ? "Profile updated" : "Resident added");
+      toast.success(resident ? "Profile updated" : "User profile added");
       onOpenChange(false);
       if (!resident) onCreated?.(id);
     },
@@ -173,7 +173,7 @@ export function ResidentDialog({
             onClick={() => save.mutate()}
             className="rounded-full bg-foreground px-6 py-2.5 text-sm font-semibold text-background transition-colors hover:bg-accent disabled:opacity-60"
           >
-            {save.isPending ? "Saving…" : resident ? "Save changes" : "Add resident"}
+            {save.isPending ? "Saving…" : resident ? "Save changes" : "Add user profile"}
           </button>
         </DialogFooter>
       </DialogContent>

@@ -7,7 +7,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Vera helps care teams track elderly residents receiving scheduled wellness phone calls, with profiles, schedules and call history.",
+          "Vera helps care teams track people receiving scheduled wellness phone calls, with user profiles, schedules and call history.",
       },
       { property: "og:title", content: "Vera — Wellness Call Care Registry" },
       {

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { AppShell } from "@/components/AppShell";
 import { CallLogDialog } from "@/components/CallLogDialog";
 import { ResidentDialog } from "@/components/ResidentDialog";
+import { CaregiverAccess } from "@/components/CaregiverAccess";
 import { ScheduleDialog } from "@/components/ScheduleDialog";
 import { WeeklyActivitySchedule } from "@/components/WeeklyActivitySchedule";
 import {
@@ -22,16 +23,16 @@ import {
 export const Route = createFileRoute("/_authenticated/residents/$residentId")({
   head: () => ({
     meta: [
-      { title: "Resident profile — Vera" },
+      { title: "User profile — Vera" },
       {
         name: "description",
         content:
-          "Resident profile with contacts, personalization notes, upcoming wellness calls, and full call history.",
+          "User profile with contacts, personalization notes, upcoming wellness calls, and full call history.",
       },
-      { property: "og:title", content: "Resident profile — Vera" },
+      { property: "og:title", content: "User profile — Vera" },
       {
         property: "og:description",
-        content: "Contacts, notes, upcoming wellness calls, and call history for a resident.",
+        content: "Contacts, notes, upcoming wellness calls, and call history for one person.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -64,7 +65,7 @@ function ResidentProfile() {
     return (
       <AppShell>
         <div className="space-y-4 py-20">
-          <h1 className="font-display text-3xl font-bold">Resident not found</h1>
+          <h1 className="font-display text-3xl font-bold">User profile not found</h1>
           <Link to="/residents" className="font-mono text-xs uppercase tracking-widest text-accent">
             Back to registry
           </Link>
@@ -85,7 +86,7 @@ function ResidentProfile() {
             <div className="space-y-1">
               <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
                 <Link to="/residents" className="hover:text-foreground">
-                  Residents
+                  User profiles
                 </Link>
                 <span className="opacity-30">/</span>
                 <span className="text-foreground">{r.name}</span>
@@ -199,7 +200,8 @@ function ResidentProfile() {
         </section>
 
         <aside className="pt-10">
-          <div className="sticky top-10">
+          <div className="sticky top-10 space-y-5">
+            <CaregiverAccess residentId={r.id} />
             <div className="rise rounded-2xl border border-border bg-surface p-5 [animation-delay:500ms]">
               <div className="mb-5 flex items-center justify-between">
                 <span className="font-mono text-[10px] uppercase tracking-widest text-muted">Care Registry</span>

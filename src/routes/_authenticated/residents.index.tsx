@@ -15,16 +15,16 @@ import {
 export const Route = createFileRoute("/_authenticated/residents/")({
   head: () => ({
     meta: [
-      { title: "Residents — Vera Care Intelligence" },
+      { title: "User profiles — Vera Care Intelligence" },
       {
         name: "description",
         content:
-          "Vera tracks elderly residents receiving scheduled wellness phone calls: profiles, call schedules, and call history in one place.",
+          "Vera tracks people receiving scheduled wellness phone calls: profiles, call schedules, and call history in one place.",
       },
-      { property: "og:title", content: "Residents — Vera Care Intelligence" },
+      { property: "og:title", content: "User profiles — Vera Care Intelligence" },
       {
         property: "og:description",
-        content: "Profiles, call schedules, and call history for every resident in your care.",
+        content: "Profiles, call schedules, and call history for every user profile in your care.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -53,7 +53,7 @@ function Dashboard() {
           <div className="space-y-1">
             <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">Care Registry</div>
             <h1 className="font-display text-5xl font-bold leading-tight tracking-tighter text-balance sm:text-6xl">
-              Residents
+              User profiles
             </h1>
             <p className="max-w-md pt-2 text-[15px] text-muted">
               Everyone receiving scheduled wellness calls, with their next call and most recent outcome.
@@ -107,7 +107,7 @@ function Dashboard() {
               onClick={() => setAdding(true)}
               className="flex h-40 w-full items-center justify-center rounded-2xl border-2 border-dashed border-border text-sm font-semibold text-muted transition-colors hover:border-accent hover:text-accent"
             >
-              + Add your first resident
+              + Add your first user profile
             </button>
           )}
         </div>
