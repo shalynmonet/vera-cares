@@ -21,6 +21,7 @@ export interface Resident {
   caregiver_contact_info: string | null;
   caregiver_relationship: string | null;
   interests_notes: string | null;
+  emergency_criteria: string | null;
   created_at: string;
 }
 
