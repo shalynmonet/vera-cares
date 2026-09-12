@@ -96,6 +96,44 @@ export type Database = {
           },
         ]
       }
+      call_touchpoints: {
+        Row: {
+          call_type: string
+          created_at: string
+          id: string
+          prompt: string
+          resident_id: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          call_type: string
+          created_at?: string
+          id?: string
+          prompt: string
+          resident_id: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          call_type?: string
+          created_at?: string
+          id?: string
+          prompt?: string
+          resident_id?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "call_touchpoints_resident_id_fkey"
+            columns: ["resident_id"]
+            isOneToOne: false
+            referencedRelation: "residents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       resident_caregivers: {
         Row: {
           created_at: string
@@ -118,6 +156,44 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "resident_caregivers_resident_id_fkey"
+            columns: ["resident_id"]
+            isOneToOne: false
+            referencedRelation: "residents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      resident_exercises: {
+        Row: {
+          created_at: string
+          duration_minutes: number | null
+          id: string
+          instructions: string | null
+          name: string
+          resident_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          duration_minutes?: number | null
+          id?: string
+          instructions?: string | null
+          name: string
+          resident_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          duration_minutes?: number | null
+          id?: string
+          instructions?: string | null
+          name?: string
+          resident_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "resident_exercises_resident_id_fkey"
             columns: ["resident_id"]
             isOneToOne: false
             referencedRelation: "residents"
