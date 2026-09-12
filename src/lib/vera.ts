@@ -6,8 +6,8 @@ export const LIVING_SITUATIONS: LivingSituation[] = ["Nursing home", "Independen
 export type CallType = "Social Check-In" | "Activity";
 export const CALL_TYPES: CallType[] = ["Social Check-In", "Activity"];
 
-export type Outcome = "Completed" | "No answer" | "Cut short";
-export const OUTCOMES: Outcome[] = ["Completed", "No answer", "Cut short"];
+export type Outcome = "Completed" | "No answer" | "Cut short" | "Emergency";
+export const OUTCOMES: Outcome[] = ["Completed", "No answer", "Cut short", "Emergency"];
 
 export const FREQUENCIES = ["Daily", "Every other day", "Weekly", "Twice weekly", "Monthly"];
 
@@ -21,6 +21,7 @@ export interface Resident {
   caregiver_contact_info: string | null;
   caregiver_relationship: string | null;
   interests_notes: string | null;
+  emergency_criteria: string | null;
   created_at: string;
 }
 
@@ -150,8 +151,9 @@ export function formatDateTime(value: string | null) {
 
 export function outcomeClasses(outcome: string) {
   if (outcome === "Completed") return "bg-good-soft text-good border-good/25";
-  if (outcome === "Cut short") return "bg-warn-soft text-warn border-warn/25";
-  return "bg-bad-soft text-bad border-bad/25";
+  if (outcome === "No answer") return "bg-alert-soft text-alert border-alert/25";
+  if (outcome === "Cut short") return "bg-caution-soft text-caution border-caution/30";
+  return "bg-bad-soft text-bad border-bad/30";
 }
 
 export function toLocalInputValue(date: Date) {

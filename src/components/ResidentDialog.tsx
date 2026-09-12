@@ -24,6 +24,7 @@ const empty = {
   caregiver_contact_info: "",
   caregiver_relationship: "",
   interests_notes: "",
+  emergency_criteria: "",
 };
 
 type Form = typeof empty;
@@ -54,6 +55,7 @@ export function ResidentDialog({
         caregiver_contact_info: resident.caregiver_contact_info ?? "",
         caregiver_relationship: resident.caregiver_relationship ?? "",
         interests_notes: resident.interests_notes ?? "",
+        emergency_criteria: resident.emergency_criteria ?? "",
       });
     } else {
       setForm(empty);
@@ -155,6 +157,15 @@ export function ResidentDialog({
               value={form.interests_notes}
               onChange={(e) => set("interests_notes")(e.target.value)}
               placeholder="Hobbies, family names, things they like to talk about…"
+            />
+          </Field>
+
+          <Field label="Emergency criteria" className="sm:col-span-2">
+            <Textarea
+              rows={3}
+              value={form.emergency_criteria}
+              onChange={(e) => set("emergency_criteria")(e.target.value)}
+              placeholder="What counts as an emergency for this person, and who to call…"
             />
           </Field>
         </div>

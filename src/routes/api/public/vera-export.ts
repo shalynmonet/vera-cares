@@ -38,7 +38,7 @@ export const Route = createFileRoute("/api/public/vera-export")({
         const [residents, callSchedules, weeklyActivities, exercises, touchpoints] = await Promise.all([
           supabaseAdmin
             .from("residents")
-            .select("id,name,living_situation,family_contact_name,family_contact_info,caregiver_contact_name,caregiver_contact_info,caregiver_relationship,interests_notes,updated_at")
+            .select("id,name,living_situation,family_contact_name,family_contact_info,caregiver_contact_name,caregiver_contact_info,caregiver_relationship,interests_notes,emergency_criteria,updated_at")
             .order("name"),
           supabaseAdmin
             .from("call_schedules")

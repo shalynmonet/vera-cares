@@ -9,6 +9,7 @@ import { CallTouchpoints } from "@/components/CallTouchpoints";
 import { DailyExercises } from "@/components/DailyExercises";
 import { ResidentDialog } from "@/components/ResidentDialog";
 import { CaregiverAccess } from "@/components/CaregiverAccess";
+import { OutcomeTag } from "@/components/OutcomeTag";
 import { ScheduleDialog } from "@/components/ScheduleDialog";
 import { WeeklyActivitySchedule } from "@/components/WeeklyActivitySchedule";
 import {
@@ -16,7 +17,6 @@ import {
   formatDateTime,
   initials,
   logsQuery,
-  outcomeClasses,
   residentQuery,
   residentsQuery,
   schedulesQuery,
@@ -156,6 +156,13 @@ function ResidentProfile() {
                 {r.interests_notes || "No personalization notes yet."}
               </p>
             </div>
+
+            <div className="rise rounded-2xl border border-bad/30 bg-bad-soft p-6 [animation-delay:250ms]">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-bad">Emergency criteria</span>
+              <p className="mt-3 max-w-[65ch] text-[15px] leading-relaxed text-pretty">
+                {r.emergency_criteria || "No emergency criteria recorded yet."}
+              </p>
+            </div>
           </div>
 
           <WeeklyActivitySchedule
@@ -206,11 +213,7 @@ function ResidentProfile() {
                       <div className="font-mono text-[10px] text-muted">{formatDateTime(log.occurred_at)}</div>
                       {log.notes && <div className="truncate text-[12px] text-muted">{log.notes}</div>}
                     </div>
-                    <span
-                      className={`ml-3 shrink-0 rounded-full border px-2.5 py-0.5 text-[10px] font-semibold ${outcomeClasses(log.outcome)}`}
-                    >
-                      {log.outcome}
-                    </span>
+                    <OutcomeTag log={log} />
                   </button>
                 ))}
               </div>

@@ -207,6 +207,7 @@ export type Database = {
           caregiver_contact_name: string | null
           caregiver_relationship: string | null
           created_at: string
+          emergency_criteria: string | null
           family_contact_info: string | null
           family_contact_name: string | null
           id: string
@@ -220,6 +221,7 @@ export type Database = {
           caregiver_contact_name?: string | null
           caregiver_relationship?: string | null
           created_at?: string
+          emergency_criteria?: string | null
           family_contact_info?: string | null
           family_contact_name?: string | null
           id?: string
@@ -233,6 +235,7 @@ export type Database = {
           caregiver_contact_name?: string | null
           caregiver_relationship?: string | null
           created_at?: string
+          emergency_criteria?: string | null
           family_contact_info?: string | null
           family_contact_name?: string | null
           id?: string
