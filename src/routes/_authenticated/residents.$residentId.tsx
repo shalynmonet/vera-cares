@@ -4,11 +4,15 @@ import { useState } from "react";
 
 import { AppShell } from "@/components/AppShell";
 import { CallLogDialog } from "@/components/CallLogDialog";
+import { CallSummaryDialog } from "@/components/CallSummaryDialog";
+import { CallTouchpoints } from "@/components/CallTouchpoints";
+import { DailyExercises } from "@/components/DailyExercises";
 import { ResidentDialog } from "@/components/ResidentDialog";
 import { CaregiverAccess } from "@/components/CaregiverAccess";
 import { ScheduleDialog } from "@/components/ScheduleDialog";
 import { WeeklyActivitySchedule } from "@/components/WeeklyActivitySchedule";
 import {
+  exercisesQuery,
   formatDateTime,
   initials,
   logsQuery,
@@ -16,7 +20,9 @@ import {
   residentQuery,
   residentsQuery,
   schedulesQuery,
+  touchpointsQuery,
   weeklyActivitiesQuery,
+  type CallLog,
   type CallSchedule,
 } from "@/lib/vera";
 
