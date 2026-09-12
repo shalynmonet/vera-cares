@@ -40,6 +40,10 @@
   --color-warn-soft: var(--warn-soft);
   --color-bad: var(--bad);
   --color-bad-soft: var(--bad-soft);
+  --color-alert: var(--alert);
+  --color-alert-soft: var(--alert-soft);
+  --color-caution: var(--caution);
+  --color-caution-soft: var(--caution-soft);
 }
 
 :root {
