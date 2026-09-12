@@ -16,7 +16,6 @@ import {
   formatDateTime,
   initials,
   logsQuery,
-  outcomeClasses,
   residentQuery,
   residentsQuery,
   schedulesQuery,
