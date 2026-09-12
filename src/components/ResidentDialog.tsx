@@ -136,19 +136,19 @@ export function ResidentDialog({
             <Input value={form.family_contact_info} onChange={(e) => set("family_contact_info")(e.target.value)} />
           </Field>
 
+          <Field label="Relationship to user" className="sm:col-span-2">
+            <Input
+              value={form.caregiver_relationship}
+              onChange={(e) => set("caregiver_relationship")(e.target.value)}
+              placeholder="Daughter, Son, Spouse, Niece…"
+            />
+          </Field>
+
           <Field label="Caregiver / facility contact">
             <Input value={form.caregiver_contact_name} onChange={(e) => set("caregiver_contact_name")(e.target.value)} />
           </Field>
           <Field label="Caregiver email or phone">
             <Input value={form.caregiver_contact_info} onChange={(e) => set("caregiver_contact_info")(e.target.value)} />
-          </Field>
-
-          <Field label="Relationship" className="sm:col-span-2">
-            <Input
-              value={form.caregiver_relationship}
-              onChange={(e) => set("caregiver_relationship")(e.target.value)}
-              placeholder="Facility nurse, Daughter, Home health aide…"
-            />
           </Field>
 
           <Field label="Interests & notes" className="sm:col-span-2">

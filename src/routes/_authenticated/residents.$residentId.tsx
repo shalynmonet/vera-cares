@@ -129,7 +129,9 @@ function ResidentProfile() {
             <div className="rise grid overflow-hidden rounded-2xl border border-border bg-surface sm:grid-cols-2 [animation-delay:100ms]">
               <div className="border-b border-border p-6 sm:border-r sm:border-b-0">
                 <div className="mb-4 flex items-center justify-between">
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-muted">Family contact</span>
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-muted">
+                    {r.caregiver_relationship || "Family contact"}
+                  </span>
                   <div className="pattern-houndstooth size-4 text-border" />
                 </div>
                 <div className="font-display text-lg font-semibold">{r.family_contact_name || "—"}</div>
@@ -138,7 +140,7 @@ function ResidentProfile() {
               <div className="p-6">
                 <div className="mb-4 flex items-center justify-between">
                   <span className="font-mono text-[10px] uppercase tracking-widest text-muted">
-                    {r.caregiver_relationship || "Caregiver contact"}
+                    Caregiver contact
                   </span>
                   <div className="pattern-houndstooth size-4 text-border" />
                 </div>
