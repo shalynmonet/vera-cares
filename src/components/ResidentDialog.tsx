@@ -55,6 +55,7 @@ export function ResidentDialog({
         caregiver_contact_info: resident.caregiver_contact_info ?? "",
         caregiver_relationship: resident.caregiver_relationship ?? "",
         interests_notes: resident.interests_notes ?? "",
+        emergency_criteria: resident.emergency_criteria ?? "",
       });
     } else {
       setForm(empty);
