@@ -24,6 +24,7 @@ const empty = {
   caregiver_contact_info: "",
   caregiver_relationship: "",
   interests_notes: "",
+  emergency_criteria: "",
 };
 
 type Form = typeof empty;
